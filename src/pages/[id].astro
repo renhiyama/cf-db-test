@@ -1,0 +1,14 @@
+---
+import { eq } from "astro:db";
+import Layout from "../layouts/Layout.astro";
+import {db, Posts} from "astro:db";
+const {id} = Astro.params;
+console.log(id);
+const post = (await db.select().from(Posts).where(eq(Posts.id, id)))[0];
+---
+
+<Layout title={`${post.title}`}>
+  <a href="/">Go Back</a>
+  <h1>{post.title}</h1>
+  <p>{post.content}</p>
+</Layout>

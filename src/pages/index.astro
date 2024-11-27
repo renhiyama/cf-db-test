@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { db, Posts } from "astro:db";
+const posts = await db.select().from(Posts);
+console.log(posts);
+---
+
+<Layout title="Cloudflare Turso DB Test">
+  <h1>Cloudflare Turso DB Test</h1>
+  <p>Posts:</p>
+  <ul>
+    {
+      posts.map(post => (
+        <li>
+          <a href={`/${post.id}`}>{post.title}</a>
+        </li>
+      ))
+    }
+  </ul>
+</Layout>
