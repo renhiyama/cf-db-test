@@ -1,7 +1,10 @@
 import type { APIRoute } from "astro";
 import {db, Posts} from "astro:db";
 
-export const GET: APIRoute = async ({ params, request }) => {
+export const GET: APIRoute = async ({ locals }) => {
+  //@ts-ignore
+  const {env} = locals.runtime || import.meta;
+  console.log(env.ASTRO_DB_REMOTE_URL, env.ASTRO_DB_APP_TOKEN);
   //route exists for production build
   await db.insert(Posts).values({
     title: 'Hello, world!',
